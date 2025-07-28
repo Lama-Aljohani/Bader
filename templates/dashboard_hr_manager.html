@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>مدير الموارد البشرية | نظام بادر</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/status_tags.css') }}">
+</head>
+<body>
+
+<header class="navbar navbar-light p-3 shadow-sm sticky-top" style="background-color: #fff; border-bottom: 2px solid #dcdcdc;">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <img src="{{ url_for('static', filename='images/Baderlogo.png') }}" alt="شعار منصة بادر" class="logo">
+    </div>
+
+    <div class="d-flex align-items-center">
+      <div class="position-relative me-2">
+        <button class="notification-btn" onclick="toggleMessages()" id="notifIcon" type="button">
+          <i class="bi bi-bell-fill fs-5 text-success"></i>
+          {% if new_requests_count > 0 %}
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ new_requests_count }}
+          </span>
+          {% endif %}
+        </button>
+        <div class="dropdown-messages shadow-sm" id="messagesDropdown">
+          {% if unread_nominations %}
+            <ul class="list-unstyled m-0">
+              {% for n in unread_nominations %}
+              <li class="d-flex justify-content-between align-items-start p-2 border-bottom">
+                <div>
+                  <strong>{{ n.user.full_name }}</strong><br>
+                  {{ n.course.course_title }}<br>
+                  <small class="text-muted">{{ n.submission_date.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <form method="POST" action="{{ url_for('mark_as_read') }}">
+                  <input type="hidden" name="nomination_id" value="{{ n.id }}">
+                  <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="إغلاق">&times;</button>
+                </form>
+              </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="text-center p-3">لا توجد إشعارات جديدة.</div>
+          {% endif %}
+          <a class="view-all border-top d-block text-center py-2" href="{{ url_for('messages') }}">عرض جميع الإشعارات</a>
+        </div>
+      </div>
+
+      <button class="user-btn me-2" data-bs-toggle="offcanvas" data-bs-target="#userPanel" type="button">
+        <i class="bi bi-person fs-5 text-success"></i>
+      </button>
+
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">تسجيل الخروج</a>
+      <img src="{{ url_for('static', filename='images/logoyanbu.png') }}" alt="شعار بلدية ينبع" height="80">
+    </div>
+  </div>
+</header>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="userPanel" aria-labelledby="userPanelLabel">
+  <div class="offcanvas-header">
+    <h5 id="userPanelLabel">
+      <i class="bi bi-person-circle text-primary me-2"></i>
+      {{ user.full_name.split(' ')[0] }} {{ user.full_name.split(' ')[1] if user.full_name.split(' ')|length > 1 else '' }}
+    </h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="إغلاق"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="user-info">
+      <p><i class="bi bi-hash"></i> <strong>الرقم الوظيفي :</strong> {{ user.job_number }}</p>
+      <p><i class="bi bi-person-vcard"></i> <strong>الاسم:</strong> {{ user.full_name }}</p>
+      <p><i class="bi bi-building"></i> <strong>القسم:</strong> {{ user.specialization or "غير محدد" }}</p>
+      <p><i class="bi bi-mortarboard"></i> <strong>المؤهل:</strong> {{ user.qualification or "غير متوفر" }}</p>
+      <p><i class="bi bi-envelope"></i> <strong>البريد الإلكتروني:</strong> {{ user.email }}</p>
+      <p><i class="bi bi-phone"></i> <strong>رقم الجوال:</strong> {{ user.phone_number or "—" }}</p>
+    </div>
+    <hr>
+    <button type="button" class="btn btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#editModal">
+      <i class="bi bi-pencil-square"></i> تعديل البيانات
+    </button>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" action="{{ url_for('update_user') }}">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">تعديل البيانات الشخصية</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">الاسم الكامل</label>
+            <input type="text" class="form-control" name="full_name" value="{{ user.full_name }}">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">رقم الجوال</label>
+            <input type="text" class="form-control" name="phone_number" value="{{ user.phone_number }}">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="submit" class="btn btn-success">حفظ التعديلات</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container my-4">
+  <div class="text-center mb-3">
+    <h4 class="fw-bold text-primary-emphasis">الترشيحات المعتمدة من الرئيس المباشر</h4>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button id="toggleLogBtn" class="btn btn-outline-secondary" type="button">
+      <i id="toggleIcon" class="bi bi-clock-history me-1"></i>  
+      <span id="toggleText">عرض سجل القرارات السابقة</span>  
+    </button>
+    <a href="{{ url_for('add_course') }}" class="btn btn-outline-success">
+      <i class="bi bi-plus-circle me-1"></i> إضافة دورة
+    </a>
+  </div>
+
+  {% if nominations %}
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>الموظف</th>
+          <th>الدورة</th>
+          <th>عدد أيام التدريب</th>
+          <th>المكان</th>
+          <th>المنطقة</th>
+          <th>الحالة</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for n in nominations %}
+        <tr>
+          <td>{{ n.user.full_name }}</td>
+          <td>{{ n.course.course_title }}</td>
+          <td>{{ n.course.duration_days }}</td>
+          <td>{{ n.course.delivery_mode }}</td>
+          <td>{{ n.course.region }}</td>
+          <td>
+            {% if n.status == 'approved' %}
+              <span class="badge bg-success-subtle text-success fw-bold">مقبول</span>
+            {% elif n.status == 'rejected' %}
+              <span class="badge bg-danger-subtle text-danger fw-bold">مرفوض</span>
+            {% else %}
+              <span class="badge bg-warning-subtle text-warning fw-bold">قيد الانتظار</span>
+            {% endif %}
+          </td>
+          <td>
+            {% set already_decided = n.approval_logs|selectattr("role", "equalto", "hr")|list %}
+            {% if already_decided %}
+              <span class="badge bg-secondary-subtle text-dark fw-bold">تم اتخاذ القرار</span>
+            {% else %}
+              <form method="POST" action="{{ url_for('hr_decide') }}">
+                <input type="hidden" name="nomination_id" value="{{ n.id }}">
+                <input type="hidden" name="decision" value="approve">
+                <button type="submit" class="btn btn-success btn-sm w-100 rounded-3 mb-2">قبول</button>
+              </form>
+              <button class="btn btn-danger btn-sm w-100 rounded-3" onclick="toggleRejectForm({{ n.id }})">رفض</button>
+              <form method="POST" action="{{ url_for('hr_decide') }}" id="reject-form-{{ n.id }}" class="mt-2" style="display:none;">
+                <input type="hidden" name="nomination_id" value="{{ n.id }}">
+                <input type="hidden" name="decision" value="reject">
+                <textarea name="rejection_reason" class="form-control mb-2" placeholder="سبب الرفض" required></textarea>
+                <button type="submit" class="btn btn-outline-danger btn-sm w-100 rounded-3">تأكيد الرفض</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <div class="alert alert-info text-center">لا توجد ترشيحات حالياً.</div>
+  {% endif %}
+</div>
+
+<div id="previousLogSection" class="table-responsive mb-4 text-center container" style="display:none;">
+  <h5 class="fw-bold text-secondary mb-3">سجل القرارات السابقة</h5>
+
+  <form method="get" class="d-flex gap-2 align-items-center justify-content-end mb-3">
+    <select name="filter_status" class="form-select w-auto">
+      <option value="" {% if not filter_status %}selected{% endif %}>كل الحالات</option>
+      <option value="approved" {% if filter_status == 'approved' %}selected{% endif %}>تمت المراجعة</option>
+      <option value="rejected" {% if filter_status == 'rejected' %}selected{% endif %}>مرفوض</option>
+    </select>
+    <button type="submit" class="btn btn-outline-primary d-flex align-items-center">
+      <i class="bi bi-filter me-1"></i> تصفية
+    </button>
+  </form>
+
+  {% set filtered_logs = previous_logs %}
+  {% if filter_status %}
+    {% set filtered_logs = previous_logs | selectattr('status', 'equalto', filter_status) | list %}
+  {% endif %}
+
+  <table class="table table-bordered align-middle text-center">
+    <thead class="table-success">
+      <tr>
+        <th>اسم الموظف</th>
+        <th>الدورة</th>
+        <th>الحالة</th>
+        <th>ملاحظات</th>
+        <th>التاريخ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in filtered_logs %}
+      <tr>
+        <td>{{ log.nomination.user.full_name }}</td>
+        <td>{{ log.nomination.course.course_title }}</td>
+        <td>
+          {% if log.status == 'approved' %}
+            <span class="status-tag status-approved">
+              <i class="bi bi-check-circle"></i> تمت المراجعة
+            </span>
+          {% else %}
+            <span class="status-tag status-rejected">
+              <i class="bi bi-x-circle"></i> مرفوض
+            </span>
+          {% endif %}
+        </td>
+<td>
+  {% if log.status == 'rejected' %}
+    {{ log.notes }}
+  {% else %}
+    —
+  {% endif %}
+</td>
+        <td>{{ log.timestamp.strftime('%Y-%m-%d') }}</td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleMessages() {
+    document.getElementById('messagesDropdown').classList.toggle('show');
+  }
+
+  const btn       = document.getElementById('toggleLogBtn');
+  const icon      = document.getElementById('toggleIcon');
+  const textEl    = document.getElementById('toggleText');
+  const logSection = document.getElementById('previousLogSection');
+
+  btn.addEventListener('click', () => {
+    const isVisible = logSection.style.display === 'block';
+
+    logSection.style.display = isVisible ? 'none' : 'block';
+
+    btn.classList.toggle('btn-outline-secondary', isVisible);
+    btn.classList.toggle('btn-outline-success', !isVisible);
+
+    if (isVisible) {
+      icon.classList.replace('bi-eye-slash', 'bi-clock-history');
+      textEl.textContent = 'عرض سجل القرارات السابقة';
+    } else {
+      icon.classList.replace('bi-clock-history', 'bi-eye-slash');
+      textEl.textContent = 'إخفاء سجل القرارات السابقة';
+    }
+  });
+
+  function toggleRejectForm(id) {
+    const form = document.getElementById('reject-form-' + id);
+    form.style.display = (form.style.display === 'block') ? 'none' : 'block';
+  }
+</script>
+<script>
+  document.querySelectorAll('form[action="{{ url_for('hr_decide') }}"]').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();  
+      fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        credentials: 'same-origin'
+      }).then(() => {
+        window.location.reload();
+      });
+    });
+  });
+</script>
+</body>
+</html>

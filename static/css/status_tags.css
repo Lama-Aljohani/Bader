@@ -1,0 +1,34 @@
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.status-approved {
+  background-color: #eafaf2;
+  color: #1E8449;
+  border-color: #b7dfc8;
+}
+
+.status-pending {
+  background-color: #fff4e5;
+  color: #cc7000;
+  border-color: #f5d9b1;
+}
+
+.status-rejected {
+  background-color: #f9e7e8;
+  color: #c0392b;
+  border-color: #f5b5b8;
+}
+
+.status-tag i {
+  font-size: 1rem;
+}
+

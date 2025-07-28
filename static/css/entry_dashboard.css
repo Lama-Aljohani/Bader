@@ -1,0 +1,107 @@
+body {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #f8f9fa;
+  direction: rtl;
+  text-align: right;
+}
+.badge.bg-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+  }
+
+  .badge.bg-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .badge.bg-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  .notification-btn, .user-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.6rem;
+  margin-left: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.notification-btn i,
+.user-btn i {
+  transition: transform 0.3s ease;
+}
+
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 2px solid #dcdcdc;
+}
+
+.table {
+  background-color: #ffffff;
+}
+
+.table th {
+  background-color: #e9ecef;
+  color: #333;
+  font-weight: bold;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.btn {
+  font-size: 14px;
+}
+
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.status-approved {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-rejected {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #664d03;
+}
+.text-success {
+  color: #1a4f3f !important;
+}
+
+.btn-outline-success {
+  border-color: #1a4f3f !important;
+  color: #1a4f3f !important;
+}
+
+.btn-outline-success:hover {
+  background-color: #1a4f3f !important;
+  color: white !important;
+}
+.btn-outline-danger {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  font-weight: 500;
+}
+.btn-outline-danger:hover {
+  background-color: var(--color-danger);
+  color: white;
+}
+.icon-active {
+  transform: scale(1.3);
+  transition: transform 0.3s ease-in-out;
+  color: #0d6efd !important;
+}

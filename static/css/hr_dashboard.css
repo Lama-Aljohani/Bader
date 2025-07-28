@@ -1,0 +1,108 @@
+:root {
+  --color-primary-light: #2E9F8C;
+}
+
+.dropdown-messages {
+      display: none;
+      position: absolute;
+      top: 120%;
+      right: 0;
+      z-index: 1050;
+      width: 360px;
+    }
+    .dropdown-messages.show { display: block; }
+
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.logo {
+  height: 80px;
+}
+
+.notification-btn, .user-btn {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.6rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.notification-btn i, .user-btn i {
+  font-size: 1.3rem;
+  color: #007e6a;
+}
+
+.table th {
+  background-color: #e9f6f4;
+  color: #007e6a;
+  font-weight: 600;
+}
+
+.table td {
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+.notification-btn i:hover,
+.user-btn i:hover {
+  color: #1a4f3f !important;
+}
+.btn-success {
+  background-color: #1E8449;
+  border-color: #1E8449;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-danger {
+  background-color: #c0392b;
+  border-color: #c0392b;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-outline-danger {
+  border-color: #c0392b;
+  color: #c0392b;
+  font-weight: bold;
+}
+
+.btn-outline-danger:hover {
+  background-color: #c0392b;
+  color: white;
+}
+
+textarea.form-control {
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+}
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+}
+
+textarea.form-control-sm {
+  font-size: 0.8rem;
+  padding: 4px;
+}
+
+button.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+button.btn:hover {
+  opacity: 0.9;
+}
+.notification-btn:hover i,
+.notification-btn.icon-active i,
+.user-btn:hover i,
+.user-btn.icon-active i {
+  color: #fff !important;
+  background-color: var(--color-primary-light) !important;
+  border-radius: 50%;
+  padding: 0.3rem;
+  transition: background-color 0.2s ease;
+}

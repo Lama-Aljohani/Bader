@@ -1,0 +1,27 @@
+body {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.form-container {
+  max-width: 400px; 
+  margin: 80px auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-register {
+  background-color: #054D3B;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-register:hover {
+  background-color: #03734C;
+}
+
+.form-label {
+  font-weight: bold;
+}

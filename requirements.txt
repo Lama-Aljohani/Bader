@@ -1,0 +1,8 @@
+Flask
+Flask_SQLAlchemy
+psycopg2
+pandas
+gunicorn
+firebase-admin
+python-dotenv
+requests

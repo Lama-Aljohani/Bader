@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل حساب جديد</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+
+</head>
+<body>
+
+<div class="container">
+  <div class="form-container">
+    <h4 class="text-center mb-4">تسجيل حساب جديد</h4>
+
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label">الاسم الرباعي</label>
+        <input type="text" class="form-control" name="full_name" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">السجل المدني</label>
+        <input type="text" class="form-control" name="national_id" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">الرقم الوظيفي</label>
+        <input type="text" class="form-control" name="job_number" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">آخر مؤهل علمي</label>
+        <input type="text" class="form-control" name="qualification" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">التخصص</label>
+        <input type="text" class="form-control" name="specialization" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">البريد الإلكتروني</label>
+        <input type="email" class="form-control" name="email" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">رقم الجوال</label>
+        <input type="tel" class="form-control" name="phone" pattern="[0-9]{10}" placeholder="05XXXXXXXX" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">كلمة المرور</label>
+        <input type="password" class="form-control" name="password" required>
+      </div>
+
+      <button type="submit" class="btn btn-register w-100">تسجيل</button>
+    </form>
+
+    <div class="text-center mt-3">
+      <a href="{{ url_for('login') }}">هل لديك حساب؟ تسجيل الدخول</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

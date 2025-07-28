@@ -1,0 +1,242 @@
+:root {
+  --color-primary: #007e6a;
+  --color-primary-light: #2e9f8c;
+  --color-success: #00703c;
+  --color-warning: #e94f00;
+  --color-danger: #b10e1e;
+  --color-neutral: #f8f9fa;
+  --color-text: #222;
+  --color-muted: #6c757d;
+  --color-border: #ddd;
+  --card-radius: 0.75rem;
+}
+body {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #fff;
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.logo {
+  height: 82px;
+}
+.notification-btn,
+.user-btn {
+  background-color: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.notification-btn i,
+.user-btn i,
+#userOffcanvasLabel i {
+  font-size: 1.2rem;
+  color: var(--color-primary) !important;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.dropdown-messages {
+  background-color: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 0.6rem;
+  width: 360px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 120%;
+  right: 0;
+  z-index: 1050;
+  display: none;
+}
+.dropdown-messages.show {
+  display: block;
+}
+.dropdown-messages li {
+  font-size: 14px;
+}
+.dropdown-messages a.view-all {
+  font-size: 14px;
+  color: var(--color-primary);
+}
+.dropdown-messages a.view-all:hover {
+  background-color: var(--color-neutral);
+}
+.btn-outline-danger {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  font-weight: 500;
+}
+.btn-outline-danger:hover {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.btn-success,
+.btn-danger {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+}
+.card {
+  border-radius: var(--card-radius);
+  border: 1px solid var(--color-border);
+  background-color: #fff;
+}
+.card-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.table th, .table td {
+  vertical-align: middle;
+  border-color: var(--color-border);
+}
+
+.table thead th {
+  background-color: #e6f4ee;
+  color: #007e6a;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+.table tbody tr:nth-child(even) {
+  background-color: #f3fdf9;
+}
+.table tbody tr:hover {
+  background-color: #e2f7f0;
+}
+.status-tag {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 1rem;
+}
+
+.status-pending {
+  background-color: #fff4e5;
+  color: #cc7000;
+  border: 1px solid #f5d9b1;
+}
+
+.status-approved {
+  background-color: #d4f3e4;
+  color: #1a4f3f;
+  border: 1px solid #b2e1c9;
+}
+
+.status-rejected {
+  background-color: #f9e7e8;
+  color: var(--color-danger);
+  border: 1px solid #f5b5b8;
+}
+.user-info p {
+  margin-bottom: 0.4rem;
+  font-size: 15px;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+}
+
+.user-info i {
+  margin-left: 8px;
+  color: var(--color-muted);
+}
+
+.user-info strong {
+  min-width: 110px;
+  display: inline-block;
+  color: #333;
+}
+textarea {
+  font-size: 0.875rem;
+}
+select.form-select {
+  border-color: #1a4f3f;
+  color: #1a4f3f;
+}
+
+select.form-select:focus {
+  box-shadow: 0 0 0 0.25rem rgba(26, 79, 63, 0.25);
+  border-color: #1a4f3f;
+  outline: none;
+}
+
+.select2-container--default .select2-selection--single {
+  border: 2px solid #1a4f3f;
+  border-radius: 0.5rem;
+  height: 42px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #1a4f3f;
+  line-height: 42px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 42px;
+}
+.select2-results__option--highlighted {
+  background-color: #1a4f3f !important;
+  color: white !important;
+}
+
+.btn-outline-primary {
+  border-color: #1a4f3f !important;
+  color: #1a4f3f !important;
+  font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+  background-color: #1a4f3f !important;
+  color: white !important;
+}
+select option:checked {
+  background-color: #e7f4ea !important;  
+  color: #1E8449 !important;             
+}
+
+select option:hover {
+  background-color: #d4f3e4 !important;
+  color: #1E8449 !important;
+}
+td form {
+  margin-bottom: 5px;
+}
+
+.icon-active i {
+  color: #fff;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  padding: 0.3rem;
+}
+.notification-btn:hover i,
+.notification-btn.icon-active i,
+.user-btn:hover i,
+.user-btn.icon-active i {
+  color: #fff !important;
+  background-color: var(--color-primary-light) !important;
+  border-radius: 50%;
+  padding: 0.3rem;
+  transition: background-color 0.2s ease;
+}

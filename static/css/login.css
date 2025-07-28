@@ -1,0 +1,23 @@
+body.login-body {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #F8F9FA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-box {
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+h1 {
+  color: #054D3B;
+  font-weight: 700;
+}

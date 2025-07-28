@@ -1,0 +1,12 @@
+<h3 class="my-3">الإشعارات الجديدة</h3>
+{% if nominations %}
+  <ul class="list-group">
+    {% for n in nominations %}
+      <li class="list-group-item">
+        طلب جديد من <strong>{{ n.user.full_name }}</strong> للدورة: <strong>{{ n.course.course_title }}</strong>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="alert alert-info">لا توجد إشعارات جديدة.</div>
+{% endif %}
